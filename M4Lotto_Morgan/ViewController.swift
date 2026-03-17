@@ -22,10 +22,29 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    func getColors(from number: Int?) -> (backgroundColor: UIColor, textColor: UIColor) {
+        guard let number else {
+            return (UIColor.purple, UIColor.white)
+        }
+        
+        switch(number) {
+        case 1...10:
+            return (UIColor.red, UIColor.white)
+        case 11...20:
+            return (UIColor.green, UIColor.black)
+        case 21...30:
+            return (UIColor.blue, UIColor.white)
+        case 31...40:
+            return (UIColor.yellow, UIColor.black)
+        case 41...45:
+            return (UIColor.gray, UIColor.white)
+        default:
+            return (UIColor.purple, UIColor.white)
+        }
+    }
     
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
         let labels = [numLabel1!, numLabel2!, numLabel3!, numLabel4!, numLabel5!, numLabel6!, numLabel7!]
         
@@ -46,27 +65,13 @@ class ViewController: UIViewController {
             
             label.text = "\(sortedNums[i])" // String Interpolation "\()"
             
-            switch sortedNums[i] {
-            case 1...10:
-                label.backgroundColor = UIColor.red
-                label.textColor = .white
-            case 11...20:
-                label.backgroundColor = UIColor.green
-                label.textColor = .black
-            case 21...30:
-                label.backgroundColor = UIColor.blue
-                label.textColor = .white
-            case 31...40:
-                label.backgroundColor = UIColor.yellow
-                label.textColor = .black
-            case 41...45:
-                label.backgroundColor = UIColor.green
-                label.textColor = .black
-            default:
-                break
-            }
+            label.backgroundColor = getColors(from: sortedNums[i]).backgroundColor
+            label.textColor = getColors(from: sortedNums[i]).textColor
         }
         
+        let colors = getColors(from: nil)
+        numLabel7.backgroundColor = colors.backgroundColor
+        numLabel1.textColor = colors.textColor
         
     }
 
